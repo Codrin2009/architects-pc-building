@@ -7,10 +7,15 @@ Nu face **niciun** request către un server extern. Fonturile, sigla, iconițele
 imaginea de Open Graph sunt toate în folder. De asta site-ul nu are nevoie de
 bandă de cookie-uri.
 
-- **Domeniu:** `architectspc.ro` — vezi §2 înainte să plătești pe el.
-- **Găzduire:** Cloudflare Pages, gratuit.
+- **Live acum:** <https://codrin2009.github.io/architects-pc-building/>
+- **Cod:** <https://github.com/Codrin2009/architects-pc-building> (public)
+- **Găzduire:** GitHub Pages, gratuit, din branch-ul `main`.
+- **Domeniu propriu:** încă niciunul. `architectspc.ro` e doar un text în cod — vezi §2.
 - **Formular:** ajunge pe email. Fără telefon.
 - **Plăți:** link Stripe trimis manual pe email, per comandă. Nu e nimic de scris în cod.
+
+> ⚠ Site-ul e **noindex** cât timp e ciornă: Google nu îl va lista. Scoaterea
+> marcajului e primul lucru de făcut la lansare — vezi §7.A.
 
 ---
 
@@ -139,30 +144,47 @@ Caută pur și simplu `architectspc.ro` în tot folderul și înlocuiește peste
 
 ---
 
-## 3. Cum îl publici
+## 3. Publicarea
 
-### Cloudflare Pages
+Deja e publicat, pe GitHub Pages, din branch-ul `main`:
+<https://codrin2009.github.io/architects-pc-building/>
 
-1. Pune folderul pe GitHub (poate fi repository privat).
-2. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** →
-   **Create** → **Pages** → **Connect to Git**.
-3. Alege repository-ul. Setări de build:
-   - **Framework preset:** `None`
-   - **Build command:** *lasă gol*
-   - **Build output directory:** `/`
-4. **Save and Deploy.** În ~30 de secunde ai o adresă `nume.pages.dev`.
+### Cum publici o modificare
 
-### Legarea domeniului
+Nu există pas de build. Modifici fișierul, apoi:
 
-1. În Cloudflare: **Add a site** → domeniul → îți dă două nameservere.
-2. Le pui la registrar în locul celor implicite. Propagarea: minute–24h.
-3. În proiectul Pages → **Custom domains** → **Set up a domain**. HTTPS se face
-   singur.
+```bash
+cd architects-pc-building
+git add -A
+git commit -m "ce ai schimbat"
+git push
+```
 
-### După publicare
+GitHub reconstruiește singur în 1–2 minute. Dacă nu vezi schimbarea, e cache-ul
+browserului: `Ctrl + Shift + R`.
 
-Trimite `sitemap.xml` în
-[Google Search Console](https://search.google.com/search-console).
+### Legarea domeniului propriu, când îl cumperi
+
+GitHub Pages acceptă domenii proprii, gratuit și cu HTTPS. Nu trebuie să muți
+site-ul în altă parte.
+
+1. La registrar, în DNS-ul domeniului:
+   - pentru domeniul fără `www`: patru înregistrări `A` către adresele IP ale
+     GitHub Pages — **ia lista curentă din documentația GitHub**, se mai schimbă;
+   - pentru `www`: o înregistrare `CNAME` către `codrin2009.github.io`.
+2. Pe GitHub: **Settings → Pages → Custom domain**, scrii domeniul, **Save**.
+   Se creează automat un fișier `CNAME` în depozit — nu-l șterge.
+3. Aștepți verificarea, apoi bifezi **Enforce HTTPS**.
+
+Site-ul folosește doar căi relative, deci funcționează la fel și pe subcale
+(`/architects-pc-building/`), și direct pe domeniu. Nu ai nimic de schimbat în
+cod la mutare, în afară de adresele din §2.
+
+### După lansarea reală
+
+1. Scoți `noindex` din cele cinci pagini (§7.A).
+2. Trimiți `sitemap.xml` în
+   [Google Search Console](https://search.google.com/search-console).
 
 ---
 
@@ -300,6 +322,9 @@ publice din greșeală. Caută `TODO` în cod ca să le găsești pe toate.
 
 ### A. Blocante — fără astea nu poți lansa
 
+- [ ] **Scoate `noindex` din toate cele cinci pagini HTML.** Caută `noindex` și
+      șterge meta-ul împreună cu comentariul de deasupra. Cât timp rămâne, site-ul
+      nu apare în Google — util acum, fatal după lansare.
 - [ ] SRL înființat — lista completă de pregătit e în §0.1
 - [ ] CUI și număr din registrul comerțului obținute
 - [ ] Contabil găsit și cele 6 întrebări din §0.1 puse
