@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ============================================================
+     ATENTIE: SCOATE ACESTE DOUA RANDURI LA LANSARE.
+     Cat timp site-ul e o ciorna pe o adresa de test, ii spune lui
+     Google sa nu il indexeze - documentele legale sunt inca ciorne.
+     Daca raman dupa lansare, site-ul nu apare NICIODATA in cautari.
+     ============================================================ -->
+<meta name="robots" content="noindex, nofollow">
+
+<title>Cere ofertă — PC custom la comandă | Architects PC Building Iași</title>
+<meta name="description" content="Completează fișa de proiect pentru un PC custom în Iași sau oriunde în România: ce faci cu el, buget, periferice, design. Primești o primă configurație, fără obligații.">
+
+<!-- TODO: înlocuiește domeniul cu cel real. -->
+<link rel="canonical" href="https://architectspc.ro/oferta.html">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:site_name" content="Architects PC Building">
+<meta property="og:title" content="Cere ofertă — PC custom la comandă | Architects PC Building">
+<meta property="og:description" content="Fișa de proiect: ce faci cu calculatorul, ce buget ai, ce periferice îți trebuie. Primești o primă configurație.">
+<meta property="og:url" content="https://architectspc.ro/oferta.html">
+<meta property="og:image" content="https://architectspc.ro/assets/logo/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="theme-color" content="#F5ECDB">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+
+<link rel="preload" href="assets/fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plexmono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/style.css">
+
+<script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Sari la conținut</a>
+
+<header class="header">
+  <div class="header__inner">
+    <a class="brand" href="index.html" aria-label="Architects PC Building — acasă">
+      <svg class="brand__mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square">
+          <path d="M50 8 L96 38 L4 38 Z"/>
+          <path d="M4 48 H96"/>
+          <path d="M18 56 V80 M38 56 V80 M62 56 V80 M82 56 V80"/>
+          <path d="M8 88 H92"/>
+          <path d="M0 97 H100"/>
+        </g>
+      </svg>
+      <span class="brand__name">Architects</span>
+    </a>
+
+    <button class="nav__toggle" type="button" id="navToggle" aria-expanded="false" aria-controls="nav">
+      Meniu
+    </button>
+
+    <nav class="nav" id="nav" aria-label="Navigare principală">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="index.html#tipuri">Tipuri</a></li>
+        <li><a class="nav__link" href="index.html#proces">Proces</a></li>
+        <li><a class="nav__link" href="index.html#de-ce-noi">De ce noi</a></li>
+        <li><a class="nav__link" href="index.html#despre">Despre</a></li>
+      </ul>
+      <a class="btn btn--ghost btn--small nav__cta" href="index.html">Înapoi la site</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="shell">
+
+    <div class="section__head" style="padding-top:var(--section-y);margin-bottom:0">
+      <p class="label">Fișă de proiect</p>
+      <h1 class="h-section">Spune-ne ce ai de făcut cu el</h1>
+      <p class="prose">
+        Cinci minute. Din răspunsuri scriem o primă configurație și îți explicăm
+        fiecare piesă din ea. Îți răspundem pe email — nu te sunăm și nu e nevoie
+        de nicio întâlnire. Nu e o comandă, nu te obligă la nimic și nu costă nimic.
+      </p>
+    </div>
+
+    <div class="brief">
+
+      <!-- ================================================================
+           FORMULARUL
+           ================================================================ -->
+      <div>
+        <div class="form-summary" id="formSummary" role="alert" tabindex="-1" hidden>
+          <p class="label" style="color:var(--redline)">Fișa nu s-a trimis</p>
+          <p style="margin-top:var(--s-2)">Mai lipsesc câteva lucruri:</p>
+          <ul class="form-summary__list" id="formSummaryList"></ul>
+        </div>
+
+        <form id="briefForm" novalidate>
+
+          <!-- ---------------------------------------------------------- 01 -->
+          <fieldset class="fieldset" aria-describedby="err-scop">
+            <legend class="fieldset__legend">
+              <span class="fieldset__no">01</span>
+              <span>Scopul <span class="req" aria-hidden="true">*</span></span>
+            </legend>
+            <p class="fieldset__hint">
+              Direcția de pornire. Dacă nu ești sigur, alege ultima variantă — o
+              stabilim pe email, din ce ne scrii mai jos.
+            </p>
+
+            <div class="options">
+              <label class="option">
+                <input class="option__input" type="radio" name="scop" value="Gamer" data-label="Gamer">
+                <span class="option__text">
+                  <span class="option__name">Gamer</span>
+                  <span class="option__note">Jocuri, la rezoluția și refresh-ul monitorului tău.</span>
+                </span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="radio" name="scop" value="Creator" data-label="Creator">
+                <span class="option__text">
+                  <span class="option__name">Creator</span>
+                  <span class="option__note">Montaj video, modele AI locale, programare.</span>
+                </span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="radio" name="scop" value="Profesionist" data-label="Profesionist">
+                <span class="option__text">
+                  <span class="option__name">Profesionist</span>
+                  <span class="option__note">Birou, lucru zilnic, discret și silențios.</span>
+                </span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="radio" name="scop" value="Nu știu încă" data-label="Nestabilit">
+                <span class="option__text">
+                  <span class="option__name">Nu știu încă</span>
+                  <span class="option__note">Stabilim împreună, pe email.</span>
+                </span>
+              </label>
+            </div>
+            <p class="error" id="err-scop"></p>
+          </fieldset>
+
+          <!-- ---------------------------------------------------------- 02 -->
+          <fieldset class="fieldset">
+            <legend class="fieldset__legend">
+              <span class="fieldset__no">02</span>
+              <span>Ce faci concret</span>
+            </legend>
+            <p class="fieldset__hint">
+              Aici se decid de fapt componentele. Cu cât ești mai specific, cu atât
+              configurația e mai aproape de realitate din prima.
+            </p>
+
+            <div class="field">
+              <label class="field__label" for="activitate">Jocurile sau programele pe care le folosești</label>
+              <textarea class="textarea" id="activitate" name="activitate"
+                placeholder="ex. CS2 și Valorant la 1440p, plus DaVinci Resolve o dată pe săptămână"></textarea>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="monitor">Monitorul pe care îl ai sau îl vrei</label>
+              <input class="input" id="monitor" name="monitor" type="text"
+                placeholder="ex. 27&quot;, 1440p, 165 Hz — sau „nu știu încă”">
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="termen">Până când ai nevoie de el</label>
+              <input class="input" id="termen" name="termen" type="text"
+                placeholder="ex. în două săptămâni / nu mă grăbesc">
+            </div>
+          </fieldset>
+
+          <!-- ---------------------------------------------------------- 03 -->
+          <fieldset class="fieldset" aria-describedby="err-buget">
+            <legend class="fieldset__legend">
+              <span class="fieldset__no">03</span>
+              <span>Bugetul <span class="req" aria-hidden="true">*</span></span>
+            </legend>
+            <p class="fieldset__hint">
+              Intervalul pentru calculator, fără periferice.
+              <span class="todo">TODO: confirmă că intervalele de mai jos sunt cele
+              cu care lucrați și schimbă-le dacă nu.</span>
+            </p>
+
+            <div class="options" data-cols="2">
+              <label class="option">
+                <input class="option__input" type="radio" name="buget" value="sub 3.000 lei" data-label="&lt; 3.000 lei">
+                <span class="option__text"><span class="option__name">sub 3.000 lei</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="radio" name="buget" value="3.000 – 5.000 lei" data-label="3–5k lei">
+                <span class="option__text"><span class="option__name">3.000 – 5.000 lei</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="radio" name="buget" value="5.000 – 8.000 lei" data-label="5–8k lei">
+                <span class="option__text"><span class="option__name">5.000 – 8.000 lei</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="radio" name="buget" value="8.000 – 12.000 lei" data-label="8–12k lei">
+                <span class="option__text"><span class="option__name">8.000 – 12.000 lei</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="radio" name="buget" value="peste 12.000 lei" data-label="&gt; 12.000 lei">
+                <span class="option__text"><span class="option__name">peste 12.000 lei</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="radio" name="buget" value="Nu am un plafon fix" data-label="Flexibil">
+                <span class="option__text"><span class="option__name">Nu am un plafon fix</span></span>
+              </label>
+            </div>
+            <p class="error" id="err-buget"></p>
+          </fieldset>
+
+          <!-- ---------------------------------------------------------- 04 -->
+          <fieldset class="fieldset">
+            <legend class="fieldset__legend">
+              <span class="fieldset__no">04</span>
+              <span>Periferice</span>
+            </legend>
+            <p class="fieldset__hint">
+              Ce ți-ar trebui pe lângă calculator. Poți bifa mai multe. Dacă alegi
+              „Nu am nevoie”, celelalte se deselectează singure — și invers.
+            </p>
+
+            <div class="options" data-cols="2">
+              <label class="option">
+                <input class="option__input" type="checkbox" name="periferice" value="Monitor" data-label="Monitor">
+                <span class="option__text"><span class="option__name">Monitor</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="checkbox" name="periferice" value="Tastatură" data-label="Tastatură">
+                <span class="option__text"><span class="option__name">Tastatură</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="checkbox" name="periferice" value="Mouse" data-label="Mouse">
+                <span class="option__text"><span class="option__name">Mouse</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="checkbox" name="periferice" value="Căști" data-label="Căști">
+                <span class="option__text"><span class="option__name">Căști</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="checkbox" name="periferice" value="Boxe sau microfon" data-label="Audio">
+                <span class="option__text"><span class="option__name">Boxe sau microfon</span></span>
+              </label>
+              <label class="option">
+                <input class="option__input" type="checkbox" name="periferice" value="Nu am nevoie de periferice" data-label="Niciunul">
+                <span class="option__text"><span class="option__name">Nu am nevoie</span></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- ---------------------------------------------------------- 05 -->
+          <fieldset class="fieldset">
+            <legend class="fieldset__legend">
+              <span class="fieldset__no">05</span>
+              <span>Carcasa și sistemul</span>
+            </legend>
+            <p class="fieldset__hint">
+              Alegeri simple, cu explicații. Nu facem vopsire și nu modificăm
+              carcase — alegem mărimea, culoarea și dacă are sau nu lumini.
+              Dacă nu ai o preferință, ultima variantă de la fiecare întrebare e
+              cea mai bună alegere.
+            </p>
+
+            <div class="field">
+              <p class="field__label" id="lbl-carcasa">Mărimea carcasei</p>
+              <div class="options" role="radiogroup" aria-labelledby="lbl-carcasa">
+                <label class="option">
+                  <input class="option__input" type="radio" name="carcasa" value="Small form factor" data-label="SFF">
+                  <span class="option__text">
+                    <span class="option__name">Small form factor</span>
+                    <span class="option__note">Mică. Încape pe birou lângă monitor sau într-un rucsac. Mai scumpă la aceeași putere.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="carcasa" value="ATX" data-label="ATX">
+                  <span class="option__text">
+                    <span class="option__name">ATX</span>
+                    <span class="option__note">Mărimea standard, cea mai comună. Stă sub birou. Cel mai bun raport preț–putere.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="carcasa" value="E-ATX" data-label="E-ATX">
+                  <span class="option__text">
+                    <span class="option__name">E-ATX</span>
+                    <span class="option__note">Cea mai mare. Are sens doar pentru configurații foarte puternice, cu răcire mare.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="carcasa" value="Nu contează" data-label="Alegeți voi">
+                  <span class="option__text">
+                    <span class="option__name">Nu contează, alegeți voi</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <p class="field__label" id="lbl-culoare">Culoarea</p>
+              <div class="options" data-cols="2" role="radiogroup" aria-labelledby="lbl-culoare">
+                <label class="option">
+                  <input class="option__input" type="radio" name="culoare" value="Negru" data-label="Negru">
+                  <span class="option__text"><span class="option__name">Negru</span></span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="culoare" value="Alb" data-label="Alb">
+                  <span class="option__text"><span class="option__name">Alb</span></span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="culoare" value="Nu contează" data-label="Indiferent">
+                  <span class="option__text"><span class="option__name">Nu contează</span></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <p class="field__label" id="lbl-rgb">Iluminare RGB</p>
+              <div class="options" data-cols="2" role="radiogroup" aria-labelledby="lbl-rgb">
+                <label class="option">
+                  <input class="option__input" type="radio" name="rgb" value="Fără RGB" data-label="Fără">
+                  <span class="option__text">
+                    <span class="option__name">Fără</span>
+                    <span class="option__note">Nicio lumină colorată.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="rgb" value="Discret" data-label="Discret">
+                  <span class="option__text">
+                    <span class="option__name">Puțin, discret</span>
+                    <span class="option__note">Se vede că e acolo, dar nu deranjează.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="rgb" value="Da, cu RGB" data-label="Da">
+                  <span class="option__text">
+                    <span class="option__name">Da, cu RGB</span>
+                    <span class="option__note">Ventilatoare și componente iluminate.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="rgb" value="Nu contează" data-label="Indiferent">
+                  <span class="option__text"><span class="option__name">Nu contează</span></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <p class="field__label" id="lbl-sistem">Sistemul de operare</p>
+              <div class="options" role="radiogroup" aria-labelledby="lbl-sistem">
+                <label class="option">
+                  <input class="option__input" type="radio" name="sistem" value="Windows" data-label="Windows">
+                  <span class="option__text">
+                    <span class="option__name">Windows</span>
+                    <span class="option__note">Cel mai comun. Merg jocurile, Office și aproape orice program.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="sistem" value="Linux" data-label="Linux">
+                  <span class="option__text">
+                    <span class="option__name">Linux</span>
+                    <span class="option__note">Gratuit și mai tehnic. Bun pentru programare și servere. Unele jocuri și programe nu merg.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="sistem" value="Nu știu, recomandați voi" data-label="De stabilit">
+                  <span class="option__text"><span class="option__name">Nu știu, recomandați voi</span></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <p class="field__label" id="lbl-procesor">Procesorul</p>
+              <div class="options" data-cols="2" role="radiogroup" aria-labelledby="lbl-procesor">
+                <label class="option">
+                  <input class="option__input" type="radio" name="procesor" value="AMD" data-label="AMD">
+                  <span class="option__text">
+                    <span class="option__name">AMD</span>
+                    <span class="option__note">Seria Ryzen.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="procesor" value="Intel" data-label="Intel">
+                  <span class="option__text">
+                    <span class="option__name">Intel</span>
+                    <span class="option__note">Seria Core.</span>
+                  </span>
+                </label>
+                <label class="option">
+                  <input class="option__input" type="radio" name="procesor" value="Nu contează" data-label="Indiferent">
+                  <span class="option__text">
+                    <span class="option__name">Nu contează</span>
+                    <span class="option__note">Alegem ce e mai bun pe bugetul tău.</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ---------------------------------------------------------- 06 -->
+          <fieldset class="fieldset">
+            <legend class="fieldset__legend">
+              <span class="fieldset__no">06</span>
+              <span>Preferințe exacte</span>
+            </legend>
+            <p class="fieldset__hint">
+              Opțional, dar util. Dacă vrei anume o marcă, un model exact, sau dacă
+              e ceva ce nu vrei deloc, scrie aici. Cu cât ești mai precis, cu atât
+              mai puține schimburi de email.
+            </p>
+
+            <div class="field">
+              <label class="field__label" for="preferinte">Ce vrei sau ce nu vrei</label>
+              <textarea class="textarea" id="preferinte" name="preferinte"
+                placeholder="ex. doar AMD, fără Nvidia · vreau exact RTX 5070 Ti și 32 GB RAM · am deja o sursă bună și vreau să o refolosesc · să fie cât mai silențios"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- ---------------------------------------------------------- 07 -->
+          <fieldset class="fieldset">
+            <legend class="fieldset__legend">
+              <span class="fieldset__no">07</span>
+              <span>Date de contact</span>
+            </legend>
+            <p class="fieldset__hint">
+              Ca să îți putem trimite configurația. Lucrăm exclusiv pe email — nu
+              cerem număr de telefon și nu sunăm pe nimeni.
+            </p>
+
+            <div class="field">
+              <label class="field__label" for="nume">Nume <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="nume" name="nume" type="text" autocomplete="name"
+                aria-describedby="err-nume">
+              <p class="error" id="err-nume"></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="email" name="email" type="email" autocomplete="email"
+                aria-describedby="err-email">
+              <p class="error" id="err-email"></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="oras">Localitate</label>
+              <input class="input" id="oras" name="oras" type="text" autocomplete="address-level2"
+                placeholder="ex. Iași">
+            </div>
+
+            <div class="options" style="margin-top:var(--s-3)">
+              <label class="option">
+                <input class="option__input" type="checkbox" id="gdpr" name="gdpr" value="da"
+                  aria-describedby="err-gdpr">
+                <span class="option__text">
+                  <span class="option__name">Sunt de acord să fiu contactat <span class="req" aria-hidden="true">*</span></span>
+                  <span class="option__note">
+                    Îți folosim datele doar ca să răspundem la această cerere. Vezi
+                    <a class="link" href="confidentialitate.html">politica de confidențialitate</a>.
+                  </span>
+                </span>
+              </label>
+            </div>
+            <p class="error" id="err-gdpr"></p>
+          </fieldset>
+
+          <div class="form__submit">
+            <button class="btn btn--primary" type="submit">Trimite fișa</button>
+            <p class="note-small">
+              Răspundem în <span class="todo">TODO: interval de răspuns</span>.
+            </p>
+          </div>
+        </form>
+
+        <!-- Panoul de confirmare, arătat după o trimitere reușită. -->
+        <div class="form-done" id="formDone" role="status" tabindex="-1" hidden>
+          <p class="label">Fișă înregistrată</p>
+          <h2 class="h-item">Am primit-o. Mulțumim.</h2>
+          <p class="prose">
+            Îți scriem cu o primă configurație și cu întrebările care ne mai lipsesc.
+            <span class="todo">TODO: pune aici termenul real de răspuns.</span>
+          </p>
+          <p class="prose" id="doneNote" style="color:var(--graphite);font-size:var(--fs-15)"></p>
+        </div>
+      </div>
+
+      <!-- ================================================================
+           BLOCUL DE TITLU — se completează pe măsură ce răspunzi.
+           Aceeași componentă ca legenda de pe foile de tip: aici îți
+           desenezi singur fișa.
+           ================================================================ -->
+      <aside class="brief__aside" aria-label="Rezumatul fișei">
+        <div class="tb">
+          <div class="tb__head">
+            <span class="tb__title">Fișa ta</span>
+            <span class="rev">Rev. 01</span>
+          </div>
+          <div class="tb__row"><div class="tb__k">Tip</div><div class="tb__v" id="tbScop">—</div></div>
+          <div class="tb__row"><div class="tb__k">Buget</div><div class="tb__v" id="tbBuget">—</div></div>
+          <div class="tb__row"><div class="tb__k">Carcasă</div><div class="tb__v" id="tbCarcasa">—</div></div>
+          <div class="tb__row"><div class="tb__k">Culoare</div><div class="tb__v" id="tbCuloare">—</div></div>
+          <div class="tb__row"><div class="tb__k">RGB</div><div class="tb__v" id="tbRgb">—</div></div>
+          <div class="tb__row"><div class="tb__k">Sistem</div><div class="tb__v" id="tbSistem">—</div></div>
+          <div class="tb__row"><div class="tb__k">Procesor</div><div class="tb__v" id="tbProcesor">—</div></div>
+          <div class="tb__row"><div class="tb__k">Periferice</div><div class="tb__v" id="tbPeriferice">—</div></div>
+          <div class="tb__row"><div class="tb__k">Beneficiar</div><div class="tb__v" id="tbNume">—</div></div>
+          <div class="tb__row"><div class="tb__k">Localitate</div><div class="tb__v" id="tbOras">—</div></div>
+          <div class="tb__row"><div class="tb__k">Data</div><div class="tb__v" id="tbData">—</div></div>
+        </div>
+        <p class="note-small" style="margin-top:var(--s-3)">
+          Se completează singur pe măsură ce răspunzi. Nu se trimite nimic până nu
+          apeși „Trimite fișa”.
+        </p>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <svg class="footer__mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square">
+            <path d="M50 8 L96 38 L4 38 Z"/>
+            <path d="M4 48 H96"/>
+            <path d="M18 56 V80 M38 56 V80 M62 56 V80 M82 56 V80"/>
+            <path d="M8 88 H92"/>
+            <path d="M0 97 H100"/>
+          </g>
+        </svg>
+        <p class="brand__name">Architects PC Building</p>
+        <p class="prose" style="font-size:var(--fs-15)">
+          Calculatoare la comandă, desenate în jurul a ceea ce faci. Iași, România.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <p class="label">Contact</p>
+        <ul class="footer__list">
+          <li>Email: <span class="todo">TODO: adresa firmei</span></li>
+          <li>Lucrăm doar pe email. Nu dăm și nu primim telefoane.</li>
+          <li><a class="footer__link" href="index.html">Înapoi la site</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="label">Social</p>
+        <ul class="footer__list">
+          <li>Instagram: <span class="todo">TODO</span></li>
+          <li>TikTok: <span class="todo">TODO</span></li>
+          <li>YouTube: <span class="todo">TODO</span></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="label">Legal</p>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="termeni.html">Termeni și condiții</a></li>
+          <li><a class="footer__link" href="confidentialitate.html">Politica de confidențialitate</a></li>
+          <li><a class="footer__link" href="cookies.html">Politica de cookies</a></li>
+          <li><a class="footer__link" href="https://anpc.ro/" target="_blank" rel="noopener">ANPC</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__base">
+      <span>&copy; 2026 Architects PC Building</span>
+      <span><span class="todo">TODO: denumire juridică, CUI, nr. registrul comerțului</span></span>
+      <span>Desenat în Iași</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/oferta.js"></script>
+</body>
+</html>

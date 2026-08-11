@@ -1,0 +1,7 @@
+# Architects PC Building
+# TODO: înlocuiește architectspc.ro cu domeniul real, aici și în sitemap.xml.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://architectspc.ro/sitemap.xml

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Architects PC Building">
+  <title>Architects PC Building</title>
+  <rect width="100" height="100" fill="#F5ECDB"/>
+  <g fill="none" stroke="#151F21" stroke-width="6.5" stroke-linejoin="miter" stroke-linecap="square">
+    <path d="M50 14 L88 39 L12 39 Z"/>
+    <path d="M12 48 H88"/>
+    <path d="M23 56 V78 M39 56 V78 M61 56 V78 M77 56 V78"/>
+    <path d="M16 86 H84"/>
+    <path d="M10 94 H90"/>
+  </g>
+</svg>

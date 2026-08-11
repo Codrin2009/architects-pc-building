@@ -1,0 +1,1616 @@
+/* ============================================================================
+   ARCHITECTS PC BUILDING — foaia de stil principală
+   ----------------------------------------------------------------------------
+   TOATE deciziile de culoare, tipografie, spațiere și grosime de linie sunt
+   în blocul :root de mai jos. În restul fișierului nu există valori
+   hard-codate. Ca să schimbi identitatea vizuală, schimbi tokenurile.
+   Vezi README.md § „Unde se schimbă design-ul".
+
+   Cuprins
+   01  Tokenuri de design
+   02  Reset și bază
+   03  Tipografie
+   04  Structură (schelet, travee, secțiuni)
+   05  Butoane și linkuri
+   06  Antet și navigație
+   07  Erou
+   08  Bloc de titlu  ← elementul-semnătură, refolosit în 3 locuri
+   09  Foi de tip (Gamer / Creator / Profesionist)
+   10  Desen tehnic (clase SVG)
+   11  Proces
+   12  Note generale
+   13  Despre
+   14  Chemare la acțiune
+   15  Subsol
+   16  Formular (oferta.html)
+   17  Mișcare și dezvăluiri
+   ========================================================================== */
+
+/* ==========================================================================
+   01  TOKENURI DE DESIGN
+   ========================================================================== */
+
+:root {
+  /* --- Culori ------------------------------------------------------------
+     ink și cream sunt luate direct din siglă și sunt fixe.
+     Restul sunt derivate din ele — nu se introduce nicio nuanță străină.   */
+
+  --ink: #151f21;          /* linie de contur, text principal, fundal subsol */
+  --cream: #f5ecdb;        /* fundalul paginii — planșeta de desen          */
+  --sheet: #fcf8f0;        /* hârtia: carduri, foi, câmpuri de formular     */
+  --graphite: #5a6466;     /* text secundar, linii medii — 5.19:1 pe cream  */
+  --construction: #c9bfac; /* linii de construcție. NICIODATĂ text.         */
+  --redline: #c21f1f;      /* accentul unic: creionul roșu de corectură     */
+
+  /* Culoarea inelului de focus. Se rescrie pe fundal închis (vezi subsol). */
+  --focus: var(--redline);
+
+  /* --- Tipografie -------------------------------------------------------- */
+  --font-body: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', 'Segoe UI Mono',
+    'Liberation Mono', monospace;
+
+  /* Scară modulară, rație 1.25, bază 17px */
+  --fs-11: 0.6875rem;
+  --fs-13: 0.8125rem;
+  --fs-15: 0.9375rem;
+  --fs-17: 1.0625rem;
+  --fs-21: 1.3125rem;
+  --fs-27: 1.6875rem;
+  --fs-33: 2.0625rem;
+  --fs-42: 2.625rem;
+  --fs-53: 3.3125rem;
+  --fs-66: 4.125rem;
+
+  /* Lățimile axei wdth din Archivo: titlurile sunt late, textul e normal. */
+  --wdth-display: 114%;
+  --wdth-sub: 106%;
+
+  /* --- Spațiere: unitate de 4px, modul de 8px ---------------------------- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 16px;
+  --s-4: 24px;
+  --s-5: 32px;
+  --s-6: 48px;
+  --s-7: 64px;
+  --s-8: 96px;
+  --s-9: 128px;
+  --s-10: 160px;
+
+  /* --- Grosimi de linie --------------------------------------------------
+     Ierarhia unui desen tehnic. Nu se folosesc alte grosimi nicăieri.      */
+  --w-object: 2px;  /* contur de obiect: chenar de foaie, limită de secțiune */
+  --w-visible: 1px; /* muchie vizibilă: linii de tabel, celule              */
+
+  /* --- Structură --------------------------------------------------------- */
+  --content: 1280px;
+  --gutter: clamp(20px, 4vw, 64px);
+  --section-y: clamp(64px, 9vw, 128px);
+  --header-h: 64px;
+
+  /* --- Mișcare ----------------------------------------------------------- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 160ms;
+}
+
+/* ==========================================================================
+   02  RESET ȘI BAZĂ
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-17);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: var(--w-object) solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Ancorele nu trebuie să ajungă sub antetul lipit. */
+[id] {
+  scroll-margin-top: calc(var(--header-h) + var(--s-5));
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--s-3);
+  top: var(--s-3);
+  z-index: 100;
+  padding: var(--s-2) var(--s-3);
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* ==========================================================================
+   03  TIPOGRAFIE
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+blockquote {
+  margin: 0;
+}
+
+/* Titlu de afiș: Archivo lat, versale, interlinie strânsă.
+   hyphens + overflow-wrap sunt plasa de siguranță pentru cuvinte foarte lungi
+   („CONFIDENȚIALITATE” are 17 litere și nu încape într-o coloană de 280px la
+   320px lățime de ecran). Fără ele, cuvântul lățește grila care îl conține și
+   împinge toată pagina în derulare orizontală. */
+.display {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-stretch: var(--wdth-display);
+  font-size: clamp(var(--fs-33), 5.4vw, var(--fs-66));
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+.h-section {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-stretch: var(--wdth-display);
+  font-size: clamp(var(--fs-27), 3.6vw, var(--fs-42));
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+.h-item {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-stretch: var(--wdth-sub);
+  font-size: var(--fs-27);
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+}
+
+/* Eticheta monospațiată: unitatea de adnotare a întregului site. */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.lede {
+  font-size: clamp(var(--fs-17), 1.6vw, var(--fs-21));
+  line-height: 1.5;
+  max-width: 46ch;
+}
+
+.prose {
+  max-width: 62ch;
+  line-height: 1.65;
+}
+
+.prose + .prose {
+  margin-top: var(--s-3);
+}
+
+.muted {
+  color: var(--graphite);
+}
+
+/* Notă scurtă lângă un element. Text curent: eticheta versală monospațiată
+   e pentru unu-două cuvinte, nu pentru o frază. */
+.note-small {
+  max-width: 40ch;
+  font-size: var(--fs-13);
+  line-height: 1.5;
+  color: var(--graphite);
+}
+
+/* Marcaj TODO — vizibil intenționat. Caută „todo" în cod ca să le găsești. */
+.todo {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--redline);
+  border-bottom: var(--w-visible) dashed var(--redline);
+}
+
+/* ==========================================================================
+   04  STRUCTURĂ
+   ========================================================================== */
+
+.shell {
+  position: relative;
+  max-width: var(--content);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+  border-top: var(--w-visible) solid var(--ink);
+}
+
+/* Antetul de secțiune: eticheta stă deasupra titlului, aliniate optic la
+   aceeași margine stângă. Marja de jos e singura care există. */
+.section__head {
+  display: grid;
+  gap: var(--s-3);
+  margin-bottom: var(--s-7);
+  max-width: 60ch;
+}
+
+/* NOTĂ DE PROIECTARE — traveele desenate au fost eliminate.
+   Prima versiune avea trei linii de construcție verticale, la 25 / 50 / 75%,
+   ca ecou al celor patru coloane din siglă. La verificare s-a văzut că
+   niciun bloc de conținut nu se alinia la ele: liniile treceau prin titlu și
+   prin foi, adică pretindeau o grilă care nu exista. Erau decor.
+   Motivul coloanelor rămâne, dar exprimat prin margini reale de componente:
+   linia care desparte eroul de fișa proiectului, chenarul foilor, rigla din
+   blocul de titlu, linia de cotă din proces. */
+
+/* ==========================================================================
+   05  BUTOANE ȘI LINKURI
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  /* Într-o grilă, un buton nu trebuie să se întindă pe toată celula. */
+  justify-self: start;
+  gap: var(--s-2);
+  padding: 13px var(--s-4);
+  border: var(--w-visible) solid transparent;
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.btn--primary {
+  background: var(--redline);
+  color: var(--sheet);
+  border-color: var(--redline);
+}
+
+.btn--primary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn--ghost:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.btn--small {
+  padding: 9px var(--s-3);
+}
+
+/* Link textual cu subliniere de grosime controlată. */
+.link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: var(--w-visible);
+  text-underline-offset: 4px;
+  transition: color var(--dur) var(--ease);
+}
+
+.link:hover {
+  color: var(--redline);
+}
+
+.link--mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+/* ==========================================================================
+   06  ANTET ȘI NAVIGAȚIE
+   ========================================================================== */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--cream);
+  border-bottom: var(--w-object) solid var(--ink);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-height: var(--header-h);
+  max-width: var(--content);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand__mark {
+  width: 26px;
+  height: 26px;
+  flex: none;
+}
+
+.brand__name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-stretch: var(--wdth-sub);
+  font-size: var(--fs-15);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__link {
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--graphite);
+  padding-block: var(--s-2);
+  border-bottom: var(--w-object) solid transparent;
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.nav__link:hover {
+  color: var(--ink);
+}
+
+/* Secțiunea curentă — stare, nu animație. */
+.nav__link[aria-current='true'] {
+  color: var(--ink);
+  border-bottom-color: var(--redline);
+}
+
+.nav__toggle {
+  display: none;
+  align-items: center;
+  gap: var(--s-2);
+  background: transparent;
+  border: var(--w-visible) solid var(--ink);
+  padding: 8px var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+@media (max-width: 899px) {
+  /* Butonul apare doar dacă JS rulează — altfel nu ar face nimic, iar lista
+     de navigare rămâne deschisă și utilizabilă. */
+  .js .nav__toggle {
+    display: inline-flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--cream);
+    border-bottom: var(--w-object) solid var(--ink);
+    padding: var(--s-3) var(--gutter) var(--s-5);
+  }
+
+  .nav[hidden] {
+    display: none;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav__link {
+    display: block;
+    padding-block: var(--s-3);
+    border-bottom: var(--w-visible) solid var(--construction);
+  }
+
+  .nav__link[aria-current='true'] {
+    border-bottom-color: var(--redline);
+  }
+
+  .nav__cta {
+    margin-top: var(--s-4);
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   07  EROU
+   ========================================================================== */
+
+.hero {
+  padding-block: clamp(var(--s-6), 7vw, var(--s-8)) var(--section-y);
+}
+
+.hero__grid {
+  display: grid;
+  gap: var(--s-7);
+}
+
+.hero__head {
+  display: grid;
+  gap: var(--s-5);
+  align-content: start;
+}
+
+.hero__lede {
+  max-width: 44ch;
+}
+
+@media (min-width: 1024px) {
+  .hero__grid {
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--s-4);
+    align-items: stretch;
+  }
+
+  .hero__head {
+    grid-column: 1 / 8;
+  }
+
+  /* Singura linie verticală din erou, și marchează o margine reală:
+     despărțitura dintre text și fișa proiectului. */
+  .hero__block {
+    grid-column: 8 / 13;
+    display: grid;
+    align-content: start;
+    padding-left: var(--s-6);
+    border-left: var(--w-visible) solid var(--construction);
+  }
+}
+
+/* ==========================================================================
+   08  BLOC DE TITLU  ← elementul-semnătură
+   --------------------------------------------------------------------------
+   Legenda din colțul unei planșe. Apare în trei locuri, identic construit:
+   1. în erou, ca fișa proiectului;
+   2. în fiecare foaie de tip, ca tabel de specificații;
+   3. în oferta.html, unde se completează pe măsură ce răspunzi.
+   ========================================================================== */
+
+.tb {
+  background: var(--sheet);
+  border: var(--w-visible) solid var(--ink);
+}
+
+.tb__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-3);
+  border-bottom: var(--w-visible) solid var(--ink);
+}
+
+.tb__title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.tb__row {
+  display: grid;
+  grid-template-columns: minmax(0, 13ch) 1fr;
+  border-bottom: var(--w-visible) solid var(--ink);
+}
+
+.tb__row:last-child {
+  border-bottom: 0;
+}
+
+.tb__k {
+  padding: 10px var(--s-3);
+  border-right: var(--w-visible) solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  overflow-wrap: anywhere;
+}
+
+.tb__v {
+  padding: 10px var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+/* Marca de revizie: triunghiul de revizie de pe planșe. Roșul e folosit
+   aici pentru că exact asta înseamnă în desen — ceva s-a schimbat. */
+.rev {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  letter-spacing: 0.08em;
+  color: var(--redline);
+}
+
+.rev::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 9px solid var(--redline);
+}
+
+/* ==========================================================================
+   09  FOI DE TIP
+   ========================================================================== */
+
+.sheets {
+  display: grid;
+  gap: var(--s-6);
+}
+
+.sheet {
+  background: var(--sheet);
+  border: var(--w-object) solid var(--ink);
+}
+
+.sheet__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border-bottom: var(--w-object) solid var(--ink);
+}
+
+.sheet__id {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+}
+
+.sheet__code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border: var(--w-visible) solid var(--ink);
+}
+
+.sheet__body {
+  display: grid;
+}
+
+.sheet__draw {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-4);
+  padding: var(--s-5) var(--s-4);
+  border-bottom: var(--w-visible) solid var(--ink);
+}
+
+/* Legenda desenului. Text curent, nu etichetă versală: sunt trei rânduri de
+   citit, iar monospațiatul cu versale la lungimea asta e ilizibil. */
+.sheet__caption {
+  max-width: 40ch;
+  text-align: center;
+  font-size: var(--fs-13);
+  line-height: 1.5;
+  color: var(--graphite);
+  text-wrap: pretty;
+}
+
+.sheet__info {
+  display: grid;
+  gap: var(--s-5);
+  align-content: start;
+  padding: var(--s-5) var(--s-4);
+}
+
+.sheet__for {
+  display: grid;
+  gap: var(--s-2);
+}
+
+@media (min-width: 900px) {
+  .sheet__body {
+    grid-template-columns: minmax(320px, 40%) 1fr;
+  }
+
+  .sheet__draw {
+    border-bottom: 0;
+    border-right: var(--w-visible) solid var(--ink);
+    align-content: center;
+  }
+
+  .sheet__info {
+    padding: var(--s-6);
+  }
+}
+
+/* ==========================================================================
+   10  DESEN TEHNIC (clase SVG)
+   --------------------------------------------------------------------------
+   vector-effect: non-scaling-stroke ține grosimile identice cu bordurile CSS,
+   indiferent cât de mare e redat desenul. Asta e tot rostul disciplinei de
+   grosimi: 2px = contur, 1px = muchie, 1px deschis = construcție,
+   1px întrerupt = element opțional / neinclus.
+   ========================================================================== */
+
+.drawing {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
+.dw-object,
+.dw-edge,
+.dw-con,
+.dw-hidden {
+  fill: none;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+}
+
+.dw-object {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.dw-edge {
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.dw-con {
+  stroke: var(--construction);
+  stroke-width: 1;
+}
+
+/* Linie întreruptă = element opțional sau neinclus în configurația de bază. */
+.dw-hidden {
+  stroke: var(--graphite);
+  stroke-width: 1;
+  stroke-dasharray: 5 4;
+}
+
+.dw-lead {
+  fill: none;
+  stroke: var(--graphite);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.dw-dot {
+  fill: var(--graphite);
+  stroke: none;
+}
+
+.dw-text {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  fill: var(--graphite);
+}
+
+.dw-text--end {
+  text-anchor: end;
+}
+
+/* ==========================================================================
+   11  PROCES
+   --------------------------------------------------------------------------
+   Singura secțiune cu adevărat secvențială — deci singurul loc din site unde
+   apar numere 01–05, și singurul loc unde o linie de cotă chiar cotează ceva:
+   șirul de stații de la 01 la 05.
+   ========================================================================== */
+
+.steps {
+  position: relative;
+  display: grid;
+}
+
+/* Linia de cotă continuă, pe care stau stațiile. */
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 47px;
+  width: var(--w-visible);
+  background: var(--construction);
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  column-gap: var(--s-4);
+  padding-block: var(--s-6);
+}
+
+.step:first-child {
+  padding-top: 0;
+}
+
+.step:last-child {
+  padding-bottom: 0;
+}
+
+/* Bifa de stație pe linia de cotă. */
+.step::before {
+  content: '';
+  position: absolute;
+  left: 40px;
+  top: var(--s-6);
+  width: 16px;
+  height: var(--w-object);
+  background: var(--ink);
+}
+
+.step:first-child::before {
+  top: 0;
+}
+
+.step__no {
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.step__body {
+  display: grid;
+  gap: var(--s-2);
+  max-width: 62ch;
+}
+
+@media (min-width: 900px) {
+  .step {
+    grid-template-columns: 48px minmax(0, 22ch) 1fr;
+  }
+
+  .step__body {
+    display: contents;
+  }
+
+  .step__title {
+    margin-top: -0.15em;
+  }
+
+  .step__text {
+    max-width: 58ch;
+  }
+}
+
+/* ==========================================================================
+   12  NOTE GENERALE
+   --------------------------------------------------------------------------
+   Lista de note de pe o planșă. Cheile N1…N6 sunt indici, nu o ordine —
+   de aceea nu sunt 01/02/03.
+   ========================================================================== */
+
+.notes {
+  display: grid;
+  border-top: var(--w-visible) solid var(--ink);
+}
+
+.note {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: var(--s-4);
+  padding-block: var(--s-5);
+  border-bottom: var(--w-visible) solid var(--construction);
+}
+
+.note__k {
+  align-self: start;
+  padding: 2px 7px;
+  border: var(--w-visible) solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+.note__body {
+  display: grid;
+  gap: var(--s-2);
+  max-width: 62ch;
+}
+
+.note__title {
+  font-weight: 600;
+  font-stretch: var(--wdth-sub);
+  font-size: var(--fs-21);
+  line-height: 1.25;
+}
+
+@media (min-width: 900px) {
+  .notes {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--s-8);
+  }
+}
+
+/* ==========================================================================
+   13  DESPRE
+   ========================================================================== */
+
+.about__intro {
+  margin-bottom: var(--s-7);
+}
+
+.people {
+  display: grid;
+  gap: var(--s-7);
+}
+
+.person {
+  display: grid;
+  gap: var(--s-4);
+  align-content: start;
+}
+
+.person__body {
+  display: grid;
+  gap: var(--s-2);
+}
+
+@media (min-width: 768px) {
+  .people {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-6);
+  }
+}
+
+/* Locul fotografiei. Dreptunghiul tăiat în X e convenția de desen pentru
+   o suprafață goală care urmează să fie completată. Raport 3:2. */
+.slot {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border: var(--w-visible) solid var(--ink);
+  background: var(--sheet);
+}
+
+.slot__x {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slot__tag {
+  position: absolute;
+  left: var(--s-3);
+  bottom: var(--s-3);
+  padding: 3px 7px;
+  background: var(--sheet);
+  border: var(--w-visible) solid var(--redline);
+  color: var(--redline);
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   14  CHEMARE LA ACȚIUNE
+   ========================================================================== */
+
+.commission {
+  display: grid;
+  gap: var(--s-6);
+}
+
+.picks {
+  display: grid;
+  border-top: var(--w-visible) solid var(--ink);
+}
+
+.pick {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-block: var(--s-4);
+  border-bottom: var(--w-visible) solid var(--ink);
+  text-decoration: none;
+  color: var(--ink);
+  transition: background-color var(--dur) var(--ease),
+    padding-inline var(--dur) var(--ease);
+}
+
+.pick:hover {
+  background: var(--sheet);
+  padding-inline: var(--s-3);
+}
+
+.pick__name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-stretch: var(--wdth-sub);
+  font-size: var(--fs-21);
+}
+
+.pick__go {
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.pick:hover .pick__go {
+  color: var(--redline);
+}
+
+@media (min-width: 900px) {
+  .commission {
+    grid-template-columns: minmax(0, 34ch) 1fr;
+    gap: var(--s-8);
+    align-items: start;
+  }
+}
+
+/* ==========================================================================
+   15  SUBSOL
+   ========================================================================== */
+
+.footer {
+  /* Pe fundal închis, roșul de corectură nu are contrast suficient —
+     inelul de focus devine crem. */
+  --focus: var(--cream);
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.footer__inner {
+  max-width: var(--content);
+  margin-inline: auto;
+  padding: var(--section-y) var(--gutter) var(--s-6);
+}
+
+.footer__grid {
+  display: grid;
+  gap: var(--s-6);
+  padding-bottom: var(--s-6);
+  border-bottom: var(--w-visible) solid var(--graphite);
+}
+
+.footer__col {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+}
+
+.footer .label {
+  color: var(--construction);
+}
+
+.footer__list {
+  display: grid;
+  gap: var(--s-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  line-height: 1.5;
+}
+
+.footer__link {
+  color: var(--cream);
+  text-decoration: underline;
+  text-decoration-thickness: var(--w-visible);
+  text-underline-offset: 4px;
+  transition: color var(--dur) var(--ease);
+}
+
+.footer__link:hover {
+  color: var(--construction);
+}
+
+.footer .todo {
+  color: var(--construction);
+  border-bottom-color: var(--construction);
+}
+
+.footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-5);
+  justify-content: space-between;
+  padding-top: var(--s-6);
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  letter-spacing: 0.06em;
+  color: var(--construction);
+}
+
+.footer__mark {
+  width: 34px;
+  height: 34px;
+  margin-bottom: var(--s-2);
+}
+
+@media (min-width: 640px) {
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer__grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: var(--s-7);
+  }
+}
+
+/* ==========================================================================
+   16  FORMULAR (oferta.html)
+   ========================================================================== */
+
+.brief {
+  display: grid;
+  gap: var(--s-7);
+  padding-block: var(--section-y);
+}
+
+@media (min-width: 1024px) {
+  .brief {
+    grid-template-columns: 1fr minmax(320px, 27rem);
+    gap: var(--s-8);
+    align-items: start;
+  }
+
+  /* Blocul de titlu rămâne vizibil cât completezi. */
+  .brief__aside {
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-4));
+  }
+}
+
+.fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0 0 var(--s-6);
+  border-bottom: var(--w-visible) solid var(--ink);
+}
+
+/* Spațiul dintre grupuri trebuie să fie MARJĂ, nu padding: <legend> se
+   așază peste marginea de sus a fieldsetului, așa că un padding-top ar
+   deschide o gaură între titlu și primul rând de conținut. */
+.fieldset + .fieldset {
+  margin-top: var(--s-6);
+}
+
+.fieldset__legend {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  padding: 0;
+  margin-bottom: var(--s-2);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-stretch: var(--wdth-sub);
+  font-size: var(--fs-21);
+}
+
+.fieldset__no {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--graphite);
+}
+
+.fieldset__hint {
+  margin-bottom: var(--s-4);
+  max-width: 58ch;
+  font-size: var(--fs-15);
+  color: var(--graphite);
+}
+
+.field {
+  display: grid;
+  gap: var(--s-2);
+  margin-bottom: var(--s-4);
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.req {
+  color: var(--redline);
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  padding: 12px var(--s-3);
+  background: var(--sheet);
+  border: var(--w-visible) solid var(--ink);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-15);
+  line-height: 1.5;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.input:hover,
+.textarea:hover,
+.select:hover {
+  border-color: var(--graphite);
+}
+
+.input[aria-invalid='true'],
+.textarea[aria-invalid='true'] {
+  border-color: var(--redline);
+  border-width: var(--w-object);
+}
+
+/* Opțiuni: fiecare e o celulă de tabel bifabilă, nu un card rotunjit. */
+.options {
+  display: grid;
+  gap: 0;
+  border-top: var(--w-visible) solid var(--ink);
+}
+
+.options[data-cols='2'] {
+  border-top: 0;
+}
+
+@media (min-width: 620px) {
+  .options[data-cols='2'] {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--s-4);
+  }
+}
+
+.option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  column-gap: var(--s-3);
+  padding-block: 14px;
+  border-bottom: var(--w-visible) solid var(--ink);
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.options[data-cols='2'] .option {
+  border-top: var(--w-visible) solid var(--ink);
+  border-bottom: 0;
+}
+
+/* Ultimul rând nu are nevoie de linie proprie — grupul e închis oricum de
+   rigla de jos a fieldsetului, iar două linii paralele arată ca o greșeală. */
+.options > .option:last-child {
+  border-bottom: 0;
+}
+
+.option:hover {
+  background: var(--sheet);
+}
+
+.option__input {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin: 4px 0 0;
+  border: var(--w-visible) solid var(--ink);
+  background: var(--sheet);
+  flex: none;
+  cursor: pointer;
+}
+
+/* Un buton radio trebuie să arate rotund, altfel se citește ca o bifă
+   și utilizatorul crede că poate alege mai multe. */
+input.option__input[type='radio'] {
+  border-radius: 50%;
+}
+
+.option__input:checked {
+  border-color: var(--redline);
+  border-width: 5px;
+}
+
+input.option__input[type='checkbox']:checked {
+  border-width: var(--w-visible);
+  background: var(--redline);
+  box-shadow: inset 0 0 0 3px var(--sheet);
+}
+
+.option__text {
+  display: grid;
+  gap: 2px;
+}
+
+.option__name {
+  font-family: var(--font-mono);
+  font-size: var(--fs-15);
+  line-height: 1.35;
+}
+
+.option__note {
+  font-size: var(--fs-13);
+  color: var(--graphite);
+  line-height: 1.4;
+}
+
+/* Mesajul de eroare al unui câmp. */
+.error {
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  color: var(--redline);
+}
+
+.error:empty {
+  display: none;
+}
+
+/* Sumarul de erori de la trimitere. */
+.form-summary {
+  padding: var(--s-4);
+  border: var(--w-object) solid var(--redline);
+  background: var(--sheet);
+  margin-bottom: var(--s-5);
+}
+
+.form-summary[hidden] {
+  display: none;
+}
+
+.form-summary__list {
+  margin: var(--s-2) 0 0;
+  padding-left: var(--s-4);
+  font-size: var(--fs-15);
+}
+
+.form-summary__list li {
+  margin-bottom: var(--s-1);
+}
+
+/* Numele de fișier și de variabilă din notele tehnice. */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  padding: 1px 5px;
+  background: var(--cream);
+  border: var(--w-visible) solid var(--construction);
+}
+
+.form-done {
+  padding: var(--s-6) var(--s-5);
+  border: var(--w-object) solid var(--ink);
+  background: var(--sheet);
+  display: grid;
+  gap: var(--s-3);
+}
+
+.form-done[hidden] {
+  display: none;
+}
+
+.form__submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4);
+  padding-top: var(--s-6);
+}
+
+/* ==========================================================================
+   17  MIȘCARE ȘI DEZVĂLUIRI
+   --------------------------------------------------------------------------
+   Singura mișcare din site, în afară de stările de hover. Starea ascunsă se
+   aplică DOAR dacă JavaScript rulează (clasa .js pusă de un script inline în
+   <head>), ca să nu existe conținut invizibil fără JS.
+   ========================================================================== */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   18  PAGINI LEGALE (termeni, confidențialitate, cookies)
+   --------------------------------------------------------------------------
+   Aici numerotarea 01, 02, 03… e corectă și necesară: un document legal se
+   citează pe articole. E singurul alt loc din site, în afară de proces, unde
+   apar numere de ordine.
+   ========================================================================== */
+
+.legal {
+  max-width: 72ch;
+  padding-block: var(--s-7) var(--section-y);
+}
+
+/* Avertismentul că textul e o ciornă, nu un document verificat juridic. */
+.legal__notice {
+  display: grid;
+  gap: var(--s-2);
+  margin-bottom: var(--s-7);
+  padding: var(--s-4);
+  border: var(--w-object) solid var(--redline);
+  background: var(--sheet);
+}
+
+.legal__art {
+  margin-top: var(--s-6);
+  padding-top: var(--s-6);
+  border-top: var(--w-visible) solid var(--construction);
+}
+
+.legal__art:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.legal__h {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  margin-bottom: var(--s-3);
+  font-weight: 600;
+  font-stretch: var(--wdth-sub);
+  font-size: var(--fs-21);
+  line-height: 1.25;
+}
+
+.legal__no {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--graphite);
+}
+
+.legal__art p {
+  margin-bottom: var(--s-3);
+  line-height: 1.65;
+}
+
+.legal__art p:last-child {
+  margin-bottom: 0;
+}
+
+.legal__art ul,
+.legal__art ol {
+  margin: 0 0 var(--s-3);
+  padding-left: var(--s-4);
+}
+
+.legal__art li {
+  margin-bottom: var(--s-2);
+  line-height: 1.6;
+}
+
+.legal__sub {
+  margin: var(--s-4) 0 var(--s-2);
+  font-size: var(--fs-17);
+  font-weight: 600;
+}
+
+/* Tabelele de date trebuie să deruleze singure, nu să lățească pagina. */
+.table-wrap {
+  overflow-x: auto;
+  margin-bottom: var(--s-4);
+}
+
+.legal__table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+}
+
+.legal__table th,
+.legal__table td {
+  padding: 10px var(--s-3);
+  border: var(--w-visible) solid var(--ink);
+  text-align: left;
+  vertical-align: top;
+  font-size: var(--fs-15);
+  line-height: 1.5;
+}
+
+.legal__table th {
+  background: var(--sheet);
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+@media print {
+  .header,
+  .skip-link {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+  }
+}
