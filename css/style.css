@@ -426,11 +426,23 @@ blockquote {
   color: var(--ink);
 }
 
-/* Sigla e o lentilă lată, nu un pătrat: se dimensionează pe lățime. */
-.brand__mark {
-  width: 34px;
-  height: auto;
-  flex: none;
+/* Sigla, construită ca în original: o semilună deasupra cuvântului, alta
+   dedesubt. Arcele se întind exact cât e de lat cuvântul, deci lockup-ul
+   rămâne corect la orice mărime de text. Culoarea vine din currentColor —
+   negru pe alb în antet, alb pe negru în subsol, dintr-o singură definiție. */
+.brand__lockup {
+  display: grid;
+  justify-items: stretch;
+  gap: 3px;
+}
+
+/* Înălțime fixă + preserveAspectRatio="none" în SVG: arcul se lățește după
+   cuvânt fără să se și înalțe, altfel lockup-ul umflă antetul. */
+.brand__arc {
+  display: block;
+  width: 100%;
+  height: 8px;
+  fill: currentColor;
 }
 
 .brand__name {
@@ -441,6 +453,22 @@ blockquote {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.brand__lockup--lg {
+  gap: 5px;
+  justify-self: start;
+}
+
+.brand__lockup--lg .brand__arc {
+  height: 11px;
+}
+
+.brand__lockup--lg .brand__name {
+  font-size: var(--fs-21);
+  letter-spacing: 0.14em;
 }
 
 .nav {
@@ -1034,62 +1062,8 @@ blockquote {
    14  CHEMARE LA ACȚIUNE
    ========================================================================== */
 
-.commission {
-  display: grid;
-  gap: var(--s-6);
-}
-
-.picks {
-  display: grid;
-  border-top: var(--w-visible) solid var(--ink);
-}
-
-.pick {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s-4);
-  padding-block: var(--s-4);
-  border-bottom: var(--w-visible) solid var(--ink);
-  text-decoration: none;
-  color: var(--ink);
-  transition: background-color var(--dur) var(--ease),
-    padding-inline var(--dur) var(--ease);
-}
-
-.pick:hover {
-  background: var(--panel);
-  padding-inline: var(--s-3);
-}
-
-.pick__name {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-stretch: var(--wdth-sub);
-  font-size: var(--fs-21);
-}
-
-.pick__go {
-  font-family: var(--font-mono);
-  font-size: var(--fs-13);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--graphite);
-}
-
-.pick:hover .pick__go {
-  color: var(--redline);
-}
-
-@media (min-width: 900px) {
-  .commission {
-    grid-template-columns: minmax(0, 34ch) 1fr;
-    gap: var(--s-8);
-    align-items: start;
-  }
-}
-
-/* ==========================================================================
+.pick:hover @media (min-width: 900px) {
+  /* ==========================================================================
    15  SUBSOL
    ========================================================================== */
 
@@ -1162,12 +1136,6 @@ blockquote {
   font-size: var(--fs-11);
   letter-spacing: 0.06em;
   color: var(--construction);
-}
-
-.footer__mark {
-  width: 46px;
-  height: auto;
-  margin-bottom: var(--s-2);
 }
 
 @media (min-width: 640px) {

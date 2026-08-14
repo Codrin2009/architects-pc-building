@@ -102,8 +102,20 @@
     if (cell) cell.textContent = value;
   }
 
+  /* Dacă a ales „Altceva”, în blocul de titlu apare ce a scris el, nu
+     cuvântul „Altceva” — e mai util și pentru el, și pentru noi. */
+  function scopLabel() {
+    var chosen = form.querySelector('input[name="scop"]:checked');
+    var liber = document.getElementById('scop_liber');
+    var text = liber ? liber.value.trim() : '';
+
+    if (chosen && chosen.value === 'Altceva') return text || 'Altceva';
+    if (!chosen && text) return text;
+    return chosen ? chosen.getAttribute('data-label') || chosen.value : GOL;
+  }
+
   function refreshTitleBlock() {
-    setCell('tbScop', labelForChecked('scop'));
+    setCell('tbScop', scopLabel());
     setCell('tbBuget', labelForChecked('buget'));
     setCell('tbCarcasa', labelForChecked('carcasa'));
     setCell('tbCuloare', labelForChecked('culoare'));
@@ -179,14 +191,25 @@
     var problems = [];
 
     // Scopul
-    if (!form.querySelector('input[name="scop"]:checked')) {
-      showError('err-scop', 'Alege o direcție de pornire.');
+    var scopAles = form.querySelector('input[name="scop"]:checked');
+    var scopLiber = document.getElementById('scop_liber');
+
+    if (!scopAles) {
+      showError('err-scop', 'Alege ce se apropie cel mai mult de ce faci.');
       problems.push({
         text: 'Nu ai ales scopul.',
         focus: form.querySelector('input[name="scop"]')
       });
     } else {
       clearError('err-scop');
+    }
+
+    // „Altceva” fără explicație nu ne spune nimic.
+    if (scopAles && scopAles.value === 'Altceva' && !scopLiber.value.trim()) {
+      showError('err-scop_liber', 'Scrie în două cuvinte ce faci cu el.', scopLiber);
+      problems.push({ text: 'Ai ales „Altceva”, dar nu ai scris ce faci.', focus: scopLiber });
+    } else {
+      clearError('err-scop_liber', scopLiber);
     }
 
     // Bugetul
