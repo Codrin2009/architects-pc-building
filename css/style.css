@@ -1028,36 +1028,22 @@ blockquote {
   }
 }
 
-/* Locul fotografiei. Dreptunghiul tăiat în X e convenția de desen pentru
-   o suprafață goală care urmează să fie completată. Raport 3:2. */
-.slot {
-  position: relative;
+/* Fotografiile reale din secțiunea Despre. Raport 3:2, chenar de 1px ca
+   restul suprafețelor. Până când există poze, blocurile sunt comentate în
+   index.html — un dreptunghi gol pe un site public arată a șantier. */
+.person__photo {
+  margin: 0;
+  display: grid;
+  gap: var(--s-2);
+}
+
+.person__photo img {
+  width: 100%;
   aspect-ratio: 3 / 2;
+  object-fit: cover;
   border: var(--w-visible) solid var(--ink);
   background: var(--panel);
 }
-
-.slot__x {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.slot__tag {
-  position: absolute;
-  left: var(--s-3);
-  bottom: var(--s-3);
-  padding: 3px 7px;
-  background: var(--panel);
-  border: var(--w-visible) solid var(--redline);
-  color: var(--redline);
-  font-family: var(--font-mono);
-  font-size: var(--fs-11);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 /* ==========================================================================
    14  CHEMARE LA ACȚIUNE
    ========================================================================== */
