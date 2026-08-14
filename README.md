@@ -459,7 +459,96 @@ architects-pc-building/
 
 ---
 
-## 9. Note tehnice
+## 9. Cum ajungi în Google
+
+În ordinea asta. Sărirea peste pasul 1 face restul inutil, iar sărirea peste
+pasul 3 înseamnă că Google nici nu află că exiști.
+
+### Pasul 1 — scoate `noindex` (obligatoriu, dar nu încă)
+
+Cât timp e acolo, Google are interdicție explicită să afișeze site-ul. Caută
+`noindex` în cele cinci fișiere HTML și șterge meta-ul cu comentariul de
+deasupra.
+
+**Nu îl scoate până nu ai:** documentele legale verificate, datele firmei
+completate în subsol, emailul public și specificațiile celor trei tipuri.
+Un site plin de „TODO” indexat acum rămâne așa în rezultate săptămâni întregi.
+
+### Pasul 2 — domeniu propriu
+
+`codrin2009.github.io/architects-pc-building` funcționează, dar:
+
+- nu conține numele firmei, deci nu ajută la căutări după marcă;
+- e o subcale pe domeniul altcuiva, iar Google tratează domeniul rădăcină ca
+  fiind al GitHub, nu al tău;
+- pe o factură sau pe un card de vizită arată a proiect de școală.
+
+Vezi §2 și §3 pentru cumpărare și legare.
+
+### Pasul 3 — Google Search Console
+
+Fără asta, aștepți să te descopere singur. Cu ea, îi spui tu.
+
+1. [search.google.com/search-console](https://search.google.com/search-console)
+   → **Add property**.
+2. Dacă ai domeniu propriu, alege **Domain** și adaugă înregistrarea TXT în DNS.
+   Dacă ești încă pe github.io, alege **URL prefix** cu adresa completă și
+   verifică prin metoda cu tag HTML — îl pui în `<head>` la `index.html`.
+3. **Sitemaps** → trimite `sitemap.xml`.
+4. **URL Inspection** → lipești adresa paginii principale → **Request indexing**.
+
+Aici vezi și dacă Google chiar te-a indexat, ce căutări te-au adus și ce erori
+a găsit. Verifică o dată pe lună.
+
+Ca să vezi rapid ce e indexat, caută în Google: `site:architectspc.ro`.
+
+### Pasul 4 — completează conținutul
+
+Google nu clasează pagini goale. Cele 21 de rânduri de specificații marcate
+`TODO` sunt exact ce ar trebui să conțină cuvintele după care te caută lumea:
+nume de procesoare, plăci video, prețuri. Titlurile și descrierile paginilor
+sunt deja scrise pentru *PC custom Iași* și *PC custom România* — dar
+degeaba, dacă în pagină nu e conținut real.
+
+### Pasul 5 — Google Business Profile
+
+**Ăsta e cel mai important pas pentru „PC custom Iași”, mai important decât
+tot site-ul.** Rezultatele cu hartă apar deasupra rezultatelor normale.
+
+- Gratuit, la [business.google.com](https://business.google.com).
+- Cere o firmă reală și o modalitate de verificare (de obicei carte poștală la
+  adresă sau verificare video).
+- Deci se face **după înființarea SRL-ului**, nu înainte.
+- Completează tot: descriere, program, zonă deservită, fotografii cu build-uri.
+- Cere o recenzie fiecărui client mulțumit. Recenziile contează enorm aici.
+
+### Pasul 6 — linkuri din locuri reale
+
+Google se uită la cine te menționează:
+
+- profilurile de Instagram / TikTok / YouTube, cu linkul în bio;
+- pagina Innovation Labs, dacă listează câștigătorii;
+- site-ul liceului, dacă scrie despre voi;
+- orice articol local despre concurs.
+
+Nu cumpăra linkuri. Se detectează și te penalizează.
+
+### Ce să aștepți realist
+
+- **Căutări după numele vostru** („architects pc iasi”): apari în câteva zile
+  până la două săptămâni după indexare. Ăsta e primul obiectiv realist.
+- **Termeni locali cu coadă lungă** („PC la comandă Iași”, „calculator custom
+  pentru montaj video”): luni, cu conținut real.
+- **Termeni generali** („PC gaming”, „calculator”): nu. Concurezi cu magazine
+  care au bugete de marketing. Nu-ți irosi timpul acolo.
+
+Traficul din primele luni va veni din Instagram și din recomandări, nu din
+Google. Site-ul e locul unde îi trimiți, nu locul de unde vin — asta se
+schimbă abia după Business Profile și după primele recenzii.
+
+---
+
+## 10. Note tehnice
 
 **Accesibilitate.** HTML semantic, un `<h1>` pe pagină, stări de focus vizibile,
 text alternativ peste tot, desenele au `<title>` și `<desc>` citite de
