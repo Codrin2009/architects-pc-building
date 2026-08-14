@@ -19,20 +19,18 @@
   var doneNote = document.getElementById('doneNote');
 
   /* ========================================================================
-     AICI SE LEAGĂ FORMULARUL DE UN SERVICIU  ←←← SINGURUL LOC DE MODIFICAT
+     AICI SE LEAGĂ FORMULARUL  ←←← SINGURUL LOC DE MODIFICAT
      ------------------------------------------------------------------------
-     Pune adresa endpointului în ENDPOINT și gata. Merge cu orice serviciu
-     care acceptă un POST cu JSON: Formspree, Basin, Netlify Forms (prin
-     funcție), Google Apps Script, propriul tău backend.
+     Pune adresa web app-ului Google Apps Script în ENDPOINT. Arată așa:
+       https://script.google.com/macros/s/AKfycb.../exec
 
-     Formspree:  https://formspree.io/f/XXXXXXXX
-     Basin:      https://usebasin.com/f/XXXXXXXX
+     Instrucțiunile de instalare sunt în apps-script/Cod.gs și în README § 5.
 
      Cât timp ENDPOINT e gol, fișa NU pleacă nicăieri: se scrie doar în
      consola browserului, ca să poți testa formularul.
      ==================================================================== */
 
-  var ENDPOINT = ''; // TODO: pune aici adresa endpointului.
+  var ENDPOINT = ''; // TODO: pune aici adresa /exec de la Apps Script.
 
   async function sendBrief(data) {
     if (!ENDPOINT) {
@@ -40,13 +38,21 @@
       return { ok: true, delivered: false };
     }
 
+    /* De ce text/plain și nu application/json:
+       Apps Script nu răspunde la cererea preliminară OPTIONS pe care browserul
+       o trimite înainte de un POST cu application/json. Cu text/plain, cererea
+       intră în categoria „simplă” și pleacă direct, fără OPTIONS. Conținutul
+       rămâne JSON — îl citim cu JSON.parse în Cod.gs. */
     var response = await fetch(ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(data)
     });
 
-    return { ok: response.ok, delivered: response.ok };
+    if (!response.ok) return { ok: false, delivered: false };
+
+    var result = await response.json();
+    return { ok: result.ok !== false, delivered: result.ok !== false };
   }
 
   /* ------------------------------------------------------------------------

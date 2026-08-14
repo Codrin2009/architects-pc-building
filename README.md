@@ -264,20 +264,51 @@ Deschide `js/oferta.js`. Singurul loc de modificat, aproape de început:
 var ENDPOINT = ''; // TODO: pune aici adresa endpointului.
 ```
 
-### Cu Formspree
+### Instalarea Google Apps Script — o singură dată, ~10 minute
 
-1. Cont gratuit pe [formspree.io](https://formspree.io), cu emailul firmei.
-2. **New Form** → îți dă `https://formspree.io/f/xxxxxxxx`.
-3. O pui în `ENDPOINT`. Gata — fișele ajung pe email.
+Rulează pe contul tău Google, gratuit, fără plafon. Fiecare cerere ajunge și pe
+email, și ca rând într-un Google Sheet — registrul tău de comenzi.
 
-Planul gratuit are o limită lunară de trimiteri; verifică dacă îți ajunge.
+1. **Fă-ți emailul firmei** pe [gmail.com](https://gmail.com), dacă nu îl ai
+   deja. Nu folosi adresa personală: pe asta o vei da mai încolo contabilului.
+2. Din același cont, deschide [sheets.new](https://sheets.new) — o foaie nouă.
+   Denumește-o de exemplu *Cereri Architects*.
+3. În foaie: **Extensions → Apps Script**. Se deschide un editor de cod.
+4. Șterge tot ce e în `Code.gs` și lipește conținutul din
+   [`apps-script/Cod.gs`](apps-script/Cod.gs).
+5. Schimbă prima linie cu date: `const EMAIL_CATRE = 'TODO@gmail.com';` — pune
+   adresa ta.
+6. **Salvează** (dischetă sau `Ctrl+S`).
+7. Apasă **Run** pe funcția `testeazaLocal`. Google îți va cere permisiuni:
+   *Review permissions → contul tău → Advanced → Go to … (unsafe) → Allow*.
+   Ecranul de avertisment apare pentru că e propriul tău script, nepublicat.
+   Dacă a mers, ai un rând nou în foaie și un email de test în inbox.
+8. **Deploy → New deployment**. La *Select type* alegi **Web app**:
+   - **Execute as:** `Me`
+   - **Who has access:** `Anyone`  ← obligatoriu, altfel site-ul nu poate trimite
+9. **Deploy** → copiază adresa **Web app URL**. Se termină în `/exec`.
+10. Pune adresa în `ENDPOINT` din `js/oferta.js`, apoi `git add -A`,
+    `git commit -m "formular conectat"`, `git push`.
+11. Intră pe site și trimite o fișă de test. Verifică inboxul și foaia.
 
-### Alte variante
+> **Dacă modifici mai târziu `Cod.gs`**, trebuie să faci
+> **Deploy → Manage deployments → creion → Version: New version → Deploy**.
+> Fără asta rămâne activă versiunea veche — e capcana clasică la Apps Script.
 
-Funcția trimite `POST` cu `Content-Type: application/json`, deci merge cu
-[Basin](https://usebasin.com), Google Apps Script, o funcție Netlify sau
-backendul tău. Dacă serviciul vrea alt format, singurul loc de modificat rămâne
-`sendBrief()`.
+### Ce primești pe email
+
+Subiectul e `Cerere nouă · Nume · Scop`, iar corpul are toate răspunsurile, câte
+unul pe rând. **Reply-To e setat pe adresa clientului**, deci apeși „Răspunde”
+în Gmail și îi scrii direct lui — nu trebuie să copiezi nimic.
+
+### Dacă vrei altceva în locul lui
+
+`sendBrief()` din `js/oferta.js` e singurul loc de modificat. Trimite un `POST`
+cu JSON în corp, deci merge și cu [Formspree](https://formspree.io),
+[Basin](https://usebasin.com) sau orice backend. Atenție la
+`Content-Type: text/plain` — e pus intenționat, ca să evite cererea preliminară
+OPTIONS pe care Apps Script nu o tratează. Alte servicii pot cere
+`application/json`.
 
 ### Ce primești pe email
 
@@ -381,7 +412,8 @@ Pentru fiecare din TIP-G, TIP-C, TIP-P:
 
 ### E. Formular — `oferta.html` și `js/oferta.js`
 
-- [ ] `ENDPOINT` în `js/oferta.js`
+- [ ] `EMAIL_CATRE` în `apps-script/Cod.gs`
+- [ ] `ENDPOINT` în `js/oferta.js` (adresa `/exec` de la Apps Script)
 - [ ] Confirmă intervalele de buget (sunt o propunere)
 - [ ] Intervalul de răspuns — apare în două locuri: lângă buton și în panoul de confirmare
 
