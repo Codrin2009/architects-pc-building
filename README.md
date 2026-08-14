@@ -410,9 +410,13 @@ Pentru fiecare din TIP-G, TIP-C, TIP-P:
 - [ ] **Foto 2** — blocul marcat `SLOT FOTO 2`
 - [ ] JSON-LD — `priceRange`, adresă, linkuri de social
 
-### E. Formular — `oferta.html` și `js/oferta.js`
+### E. Formular și email
 
-- [ ] `EMAIL_CATRE` în `apps-script/Cod.gs`
+- [ ] **Numele afișat al contului Google** setat pe `Architects PC's`, nu pe
+      numele tău. Apare în căsuța fiecărui client, la fiecare email trimis, și
+      când partajezi foaia de comenzi. `myaccount.google.com` → *Personal info*
+      → *Name*.
+- [ ] `EMAIL_CATRE` în `apps-script/Cod.gs` → `architectspcs@gmail.com`
 - [ ] `ENDPOINT` în `js/oferta.js` (adresa `/exec` de la Apps Script)
 - [ ] Confirmă intervalele de buget (sunt o propunere)
 - [ ] Intervalul de răspuns — apare în două locuri: lângă buton și în panoul de confirmare
