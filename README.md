@@ -1,4 +1,4 @@
-# Architects PC Building — site
+# Architects PC's — site
 
 Site static, cinci pagini. HTML, CSS și JavaScript simplu: **fără framework, fără
 npm, fără pas de build**. Se deschide direct din fișier și funcționează.
@@ -54,7 +54,7 @@ de pe forumuri: întreabă un contabil înainte să depui actele.**
 
 - [ ] **Numele firmei.** Se rezervă la ONRC. Pregătește 3 variante, prima poate fi
       respinsă dacă seamănă cu alta existentă. Nu trebuie să fie identic cu marca:
-      firma poate fi „Architects Build SRL”, iar site-ul rămâne Architects PC Building.
+      firma poate fi „Architects Build SRL”, iar site-ul rămâne Architects PC's.
 - [ ] **Cine sunt asociații.** Aici e singura decizie cu adevărat importantă.
       Dacă mama e unic asociat, firma e a ei în acte, iar tu nu deții nimic.
       **Recomandarea mea: fii și tu asociat.** Un minor poate deține părți sociale,

@@ -32,14 +32,15 @@
 
 :root {
   /* --- Culori ------------------------------------------------------------
-     ink și cream sunt luate direct din siglă și sunt fixe.
-     Restul sunt derivate din ele — nu se introduce nicio nuanță străină.   */
+     Paletă monocromă, ca sigla: alb, negru și un singur roșu.
+     Neutrele sunt înclinate imperceptibil spre albastru, ca să nu pară
+     un gri „din cutie” și ca să nu tragă spre bej lângă alb pur.          */
 
-  --ink: #151f21;          /* linie de contur, text principal, fundal subsol */
-  --cream: #f5ecdb;        /* fundalul paginii — planșeta de desen          */
-  --sheet: #fcf8f0;        /* hârtia: carduri, foi, câmpuri de formular     */
-  --graphite: #5a6466;     /* text secundar, linii medii — 5.19:1 pe cream  */
-  --construction: #c9bfac; /* linii de construcție. NICIODATĂ text.         */
+  --ink: #0c0e12;          /* text principal, contururi, fundal subsol      */
+  --paper: #ffffff;        /* fundalul paginii — alb curat                  */
+  --panel: #f1f3f6;        /* suprafețe ridicate: foi, carduri, câmpuri     */
+  --graphite: #59616e;     /* text secundar — 6.0:1 pe alb                  */
+  --construction: #d2d7de; /* linii de construcție. NICIODATĂ text.         */
   --redline: #c21f1f;      /* accentul unic: creionul roșu de corectură     */
 
   /* Culoarea inelului de focus. Se rescrie pe fundal închis (vezi subsol). */
@@ -111,7 +112,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--cream);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--fs-17);
@@ -168,7 +169,7 @@ textarea {
   z-index: 100;
   padding: var(--s-2) var(--s-3);
   background: var(--ink);
-  color: var(--cream);
+  color: var(--paper);
   font-family: var(--font-mono);
   font-size: var(--fs-13);
   text-decoration: none;
@@ -343,7 +344,7 @@ blockquote {
 
 .btn--primary {
   background: var(--redline);
-  color: var(--sheet);
+  color: var(--panel);
   border-color: var(--redline);
 }
 
@@ -360,7 +361,7 @@ blockquote {
 
 .btn--ghost:hover {
   background: var(--ink);
-  color: var(--cream);
+  color: var(--paper);
 }
 
 .btn--small {
@@ -402,7 +403,7 @@ blockquote {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--cream);
+  background: var(--paper);
   border-bottom: var(--w-object) solid var(--ink);
 }
 
@@ -425,9 +426,10 @@ blockquote {
   color: var(--ink);
 }
 
+/* Sigla e o lentilă lată, nu un pătrat: se dimensionează pe lățime. */
 .brand__mark {
-  width: 26px;
-  height: 26px;
+  width: 34px;
+  height: auto;
   flex: none;
 }
 
@@ -508,7 +510,7 @@ blockquote {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background: var(--cream);
+    background: var(--paper);
     border-bottom: var(--w-object) solid var(--ink);
     padding: var(--s-3) var(--gutter) var(--s-5);
   }
@@ -594,7 +596,7 @@ blockquote {
    ========================================================================== */
 
 .tb {
-  background: var(--sheet);
+  background: var(--panel);
   border: var(--w-visible) solid var(--ink);
 }
 
@@ -677,7 +679,7 @@ blockquote {
 }
 
 .sheet {
-  background: var(--sheet);
+  background: var(--panel);
   border: var(--w-object) solid var(--ink);
 }
 
@@ -1004,7 +1006,7 @@ blockquote {
   position: relative;
   aspect-ratio: 3 / 2;
   border: var(--w-visible) solid var(--ink);
-  background: var(--sheet);
+  background: var(--panel);
 }
 
 .slot__x {
@@ -1019,7 +1021,7 @@ blockquote {
   left: var(--s-3);
   bottom: var(--s-3);
   padding: 3px 7px;
-  background: var(--sheet);
+  background: var(--panel);
   border: var(--w-visible) solid var(--redline);
   color: var(--redline);
   font-family: var(--font-mono);
@@ -1056,7 +1058,7 @@ blockquote {
 }
 
 .pick:hover {
-  background: var(--sheet);
+  background: var(--panel);
   padding-inline: var(--s-3);
 }
 
@@ -1094,9 +1096,9 @@ blockquote {
 .footer {
   /* Pe fundal închis, roșul de corectură nu are contrast suficient —
      inelul de focus devine crem. */
-  --focus: var(--cream);
+  --focus: var(--paper);
   background: var(--ink);
-  color: var(--cream);
+  color: var(--paper);
 }
 
 .footer__inner {
@@ -1134,7 +1136,7 @@ blockquote {
 }
 
 .footer__link {
-  color: var(--cream);
+  color: var(--paper);
   text-decoration: underline;
   text-decoration-thickness: var(--w-visible);
   text-underline-offset: 4px;
@@ -1163,8 +1165,8 @@ blockquote {
 }
 
 .footer__mark {
-  width: 34px;
-  height: 34px;
+  width: 46px;
+  height: auto;
   margin-bottom: var(--s-2);
 }
 
@@ -1275,7 +1277,7 @@ blockquote {
 .select {
   width: 100%;
   padding: 12px var(--s-3);
-  background: var(--sheet);
+  background: var(--panel);
   border: var(--w-visible) solid var(--ink);
   border-radius: 0;
   font-family: var(--font-mono);
@@ -1342,7 +1344,7 @@ blockquote {
 }
 
 .option:hover {
-  background: var(--sheet);
+  background: var(--panel);
 }
 
 .option__input {
@@ -1351,7 +1353,7 @@ blockquote {
   height: 16px;
   margin: 4px 0 0;
   border: var(--w-visible) solid var(--ink);
-  background: var(--sheet);
+  background: var(--panel);
   flex: none;
   cursor: pointer;
 }
@@ -1370,7 +1372,7 @@ input.option__input[type='radio'] {
 input.option__input[type='checkbox']:checked {
   border-width: var(--w-visible);
   background: var(--redline);
-  box-shadow: inset 0 0 0 3px var(--sheet);
+  box-shadow: inset 0 0 0 3px var(--panel);
 }
 
 .option__text {
@@ -1405,7 +1407,7 @@ input.option__input[type='checkbox']:checked {
 .form-summary {
   padding: var(--s-4);
   border: var(--w-object) solid var(--redline);
-  background: var(--sheet);
+  background: var(--panel);
   margin-bottom: var(--s-5);
 }
 
@@ -1428,14 +1430,14 @@ code {
   font-family: var(--font-mono);
   font-size: 0.92em;
   padding: 1px 5px;
-  background: var(--cream);
+  background: var(--paper);
   border: var(--w-visible) solid var(--construction);
 }
 
 .form-done {
   padding: var(--s-6) var(--s-5);
   border: var(--w-object) solid var(--ink);
-  background: var(--sheet);
+  background: var(--panel);
   display: grid;
   gap: var(--s-3);
 }
@@ -1511,7 +1513,7 @@ code {
   margin-bottom: var(--s-7);
   padding: var(--s-4);
   border: var(--w-object) solid var(--redline);
-  background: var(--sheet);
+  background: var(--panel);
 }
 
 .legal__art {
@@ -1595,7 +1597,7 @@ code {
 }
 
 .legal__table th {
-  background: var(--sheet);
+  background: var(--panel);
   font-family: var(--font-mono);
   font-size: var(--fs-11);
   font-weight: 500;

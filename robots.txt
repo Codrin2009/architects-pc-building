@@ -1,4 +1,4 @@
-# Architects PC Building
+# Architects PC's
 # TODO: înlocuiește architectspc.ro cu domeniul real, aici și în sitemap.xml.
 
 User-agent: *
